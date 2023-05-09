@@ -81,13 +81,12 @@ WSGI_APPLICATION = 'tenda_grupB.wsgi.application'
 #Definir el nombre y puerto para la base de datos
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'BazarBalmes',
-        'USER': 'root',
-        'PASSWORD': '',
-        'HOST': '127.0.0.1',
-        'PORT': '3306',
-        'OPTIONS': {'init_command': "SET sql_mode='STRICT_TRANS_TABLES'"},
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': 'railway',
+        'USER': 'postgres',
+        'PASSWORD': '3phJuItIgp0oweebhPK3',
+        'HOST': 'containers-us-west-102.railway.app',
+        'PORT': 3306,
     }
 }
 
