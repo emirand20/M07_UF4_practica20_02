@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     #Importacion de rest_framework y el corsheaders para hacer la API Rest
     'rest_framework',
     'corsheaders',
+    'catalog',
 ]
 
 MIDDLEWARE = [
@@ -49,8 +50,11 @@ MIDDLEWARE = [
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
+
+CORS_ORIGIN_ALLOW_ALL = True
 
 ROOT_URLCONF = 'tenda_grupB.urls'
 
@@ -82,11 +86,11 @@ WSGI_APPLICATION = 'tenda_grupB.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'BazarBalmes',
+        'NAME': 'railway',
         'USER': 'root',
-        'PASSWORD': '',
-        'HOST': '127.0.0.1',
-        'PORT': '3306',
+        'PASSWORD': '9p1LyQRWiUufstUs74VW',
+        'HOST': 'containers-us-west-114.railway.app',
+        'PORT': '7411',
         'OPTIONS': {'init_command': "SET sql_mode='STRICT_TRANS_TABLES'"},
     }
 }
