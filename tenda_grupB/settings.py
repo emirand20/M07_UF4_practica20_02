@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     #Importacion de rest_framework y el corsheaders para hacer la API Rest
     'rest_framework',
     'corsheaders',
+    'catalog',
 ]
 
 MIDDLEWARE = [
@@ -49,8 +50,11 @@ MIDDLEWARE = [
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
+
+CORS_ORIGIN_ALLOW_ALL = True
 
 ROOT_URLCONF = 'tenda_grupB.urls'
 
@@ -81,12 +85,13 @@ WSGI_APPLICATION = 'tenda_grupB.wsgi.application'
 #Definir el nombre y puerto para la base de datos
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'ENGINE': 'django.db.backends.mysql',
         'NAME': 'railway',
-        'USER': 'postgres',
-        'PASSWORD': '3phJuItIgp0oweebhPK3',
-        'HOST': 'containers-us-west-102.railway.app',
-        'PORT': 3306,
+        'USER': 'root',
+        'PASSWORD': '9p1LyQRWiUufstUs74VW',
+        'HOST': 'containers-us-west-114.railway.app',
+        'PORT': '7411',
+        'OPTIONS': {'init_command': "SET sql_mode='STRICT_TRANS_TABLES'"},
     }
 }
 
