@@ -61,11 +61,11 @@ def modif_carrito(request,ct):
     return render(request,'form.html',context)
 
 #elimina carreto, enviaremos un error en el caso q no exista
-'''@api_view(['GET','DELETE'])
+@api_view(['GET','DELETE'])
 def delete_all_carrito(request,ct):
     try:
         carreto = Carreto.objects.get(idCarreto = ct)
         carreto.delete()
         return render(request,'carrito.html')   
     except Carreto.DoesNotExist:
-        return Response(status=status.HTTP_404_NOT_FOUND)'''
+        return Response(status=status.HTTP_404_NOT_FOUND)
