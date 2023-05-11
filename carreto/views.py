@@ -27,7 +27,7 @@ def carreto_list(request):
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
-'''@api_view(['GET', 'POST'])
+@api_view(['GET', 'POST'])
 def carreto_id(request, ct):
     try:  
         data = Carreto.objects.get(idCarreto=ct)
@@ -48,7 +48,7 @@ def carreto_add_form(request):
     return render(request,'form.html',context)
 
 #modif product carrito, los datos de cada producto se de modificaran agusto del cliente, guardaremos los cambios y reenviara al template
-@api_view(['GET', 'PUT','POST'])
+'''@api_view(['GET', 'PUT','POST'])
 def carreto_modify_form(request,ct):
     carreto = Carreto.objects.get(idCarreto = ct)
     form = CarretoForm(instance=carreto)
