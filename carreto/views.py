@@ -13,7 +13,7 @@ from .forms import CarretoForm
 
 
 @api_view(['GET', 'POST'])
-def carreto_list(request):
+def lista_carrito(request):
     if request.method == 'GET':
         data = Carreto.objects.all()
         serializer = CarretoSerializer(data, context={'request': request}, many=True)
@@ -28,7 +28,7 @@ def carreto_list(request):
 
 
 @api_view(['GET', 'POST'])
-def carreto_id(request, ct):
+def carrito_id(request, ct):
     try:  
         data = Carreto.objects.get(idCarreto=ct)
         serializer = CarretoSerializer(data, context={'request': request}, many=False)
@@ -38,7 +38,7 @@ def carreto_id(request, ct):
     
 #add producto al carrito, si el es valido con el post, enviara el formulario, reenviara al template
 @api_view(['GET', 'POST'])
-def carreto_add_form(request):
+def add_carrito(request):
     form = CarretoForm(request.POST)
     context = {'forms':form}
     if request.method == 'POST':
@@ -48,8 +48,8 @@ def carreto_add_form(request):
     return render(request,'form.html',context)
 
 #modif product carrito, los datos de cada producto se de modificaran agusto del cliente, guardaremos los cambios y reenviara al template
-'''@api_view(['GET', 'PUT','POST'])
-def carreto_modify_form(request,ct):
+@api_view(['GET', 'PUT','POST'])
+def modif_carrito(request,ct):
     carreto = Carreto.objects.get(idCarreto = ct)
     form = CarretoForm(instance=carreto)
     context = {'forms':form}
@@ -61,8 +61,8 @@ def carreto_modify_form(request,ct):
     return render(request,'form.html',context)
 
 #elimina carreto, enviaremos un error en el caso q no exista
-@api_view(['GET','DELETE'])
-def carreto_delete(request,ct):
+'''@api_view(['GET','DELETE'])
+def delete_all_carrito(request,ct):
     try:
         carreto = Carreto.objects.get(idCarreto = ct)
         carreto.delete()

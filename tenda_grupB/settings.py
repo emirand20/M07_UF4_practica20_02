@@ -39,8 +39,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     #Importacion de rest_framework y el corsheaders para hacer la API Rest
     'rest_framework',
-    'corsheaders',
     'catalog',
+    'carreto'
 ]
 
 MIDDLEWARE = [
@@ -50,7 +50,6 @@ MIDDLEWARE = [
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
-    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
