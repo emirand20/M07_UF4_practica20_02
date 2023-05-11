@@ -40,12 +40,12 @@ def carrito_id(request, ct):
 @api_view(['GET', 'POST'])
 def add_carrito(request):
     form = CarretoForm(request.POST)
-    context = {'forms':form}
+    context = {'form': form}
     if request.method == 'POST':
         if form.is_valid():
             form.save()
-            return render(request,'carrito.html',context)
-    return render(request,'form.html',context)
+            return render(request, 'carrito.html', context)
+    return render(request, 'carrito/template/form.html', context)
 
 #modif product carrito, los datos de cada producto se de modificaran agusto del cliente, guardaremos los cambios y reenviara al template
 @api_view(['GET', 'PUT','POST'])
