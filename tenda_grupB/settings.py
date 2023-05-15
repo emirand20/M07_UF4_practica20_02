@@ -10,6 +10,7 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/4.1/ref/settings/
 """
 
+import os
 from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -83,6 +84,9 @@ WSGI_APPLICATION = 'tenda_grupB.wsgi.application'
 # https://docs.djangoproject.com/en/4.1/ref/settings/#databases
 
 #Definir el nombre y puerto para la base de datos
+# Obtener la URL de la base de datos en Railway
+DATABASE_URL = os.getenv('DATABASE_URL')
+
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
@@ -94,6 +98,10 @@ DATABASES = {
         'OPTIONS': {'init_command': "SET sql_mode='STRICT_TRANS_TABLES'"},
     }
 }
+if DATABASE_URL:
+    import dj_database_url
+    db_from_env = dj_database_url.config(default=DATABASE_URL)
+    DATABASES['default'].update(db_from_env)
 
 
 # Password validation
