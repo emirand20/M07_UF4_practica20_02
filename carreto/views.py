@@ -6,8 +6,13 @@ from rest_framework.decorators import api_view
 from rest_framework import status
 
 #Importamos models
-from .models import Producto, Carreto
-from .serializers import CarretoSerializer
+from catalog.models import Producto
+from carreto.models import Carreto
+from catalog.serializers import ProductoSerializer
+
+
+from .serializers import *
+from django.http import JsonResponse
 
 from .forms import CarretoForm
 
@@ -15,12 +20,12 @@ from .forms import CarretoForm
 @api_view(['GET', 'POST'])
 def lista_carrito(request):
     if request.method == 'GET':
-        data = Carreto.objects.all()
-        serializer = CarretoSerializer(data, context={'request': request}, many=True)
+        data = Producto.objects.all()
+        serializer = ProductoSerializer(data, many=True)
         return Response(serializer.data)
     
     elif request.method == 'POST':
-        serializer = CarretoSerializer(data=request.data)
+        serializer = ProductoSerializer(data=request.data)
         if serializer.is_valid():
             serializer.save()
             return Response(status=status.HTTP_201_CREATED)
@@ -30,23 +35,23 @@ def lista_carrito(request):
 @api_view(['GET', 'POST'])
 def carrito_id(request, ct):
     try:  
-        data = Carreto.objects.get(idCarreto=ct)
-        serializer = CarretoSerializer(data, context={'request': request}, many=False)
+        data = Producto.objects.get(id=ct)
+        serializer = ProductoSerializer(data,context={'request': request}, many=False)
         return Response(serializer.data)
-    except Carreto.DoesNotExist:
+    except Producto.DoesNotExist:
         return Response(status=status.HTTP_404_NOT_FOUND)
     
 #add producto al carrito, si el es valido con el post, enviara el formulario, reenviara al template
 @api_view(['GET', 'POST'])
-def add_carrito(request):
-    form = CarretoForm(request.POST)
-    context = {'form': form}
-    if request.method == 'POST':
-        if form.is_valid():
-            form.save()
-            return render(request, 'carrito.html', context)
-    return render(request, 'carrito/template/form.html', context)
-
+def add_carrito(request, items):
+    listaProductos = [int(e) for e in items.split(",")]
+    myItems = Producto.objects.filter(id=listaProductos)
+   
+    cart = Carreto(isBuy=False)
+    cart.save()
+    cart.productes.set(myItems)
+    return Response({'success': 'Carrito añadido'}, status=status.HTTP_201_CREATED)
+    
 #modif product carrito, los datos de cada producto se de modificaran agusto del cliente, guardaremos los cambios y reenviara al template
 @api_view(['GET', 'PUT','POST'])
 def modif_carrito(request,ct):

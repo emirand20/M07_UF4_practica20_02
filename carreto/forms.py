@@ -1,7 +1,7 @@
 from django.forms import ModelForm
-from .models import Carreto
+from catalog.models import Producto
 
 class CarretoForm(ModelForm):
     class Meta:
-        model = Carreto
+        model = Producto
         fields = '__all__'
