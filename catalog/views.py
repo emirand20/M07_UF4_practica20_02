@@ -4,6 +4,7 @@ from rest_framework.response import Response
 from rest_framework.generics import get_object_or_404
 from .models import Producto
 from .serializers import ProductoSerializer
+from django.views.decorators.csrf import csrf_exempt    
 
 @api_view(['GET'])
 def lista_productos(request):
@@ -23,7 +24,7 @@ def agregar_producto(request):
     if serializer.is_valid():
         serializer.save()
         return Response(serializer.data, status=201)
-    return Response(serializer.errors, status=400)
+    return Response(serializer.errors, status=400)  
 
 @api_view(['GET', 'PUT', 'PATCH'])
 def actualizar_producto(request, pk):
