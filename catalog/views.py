@@ -1,10 +1,9 @@
 import statistics
+from rest_framework.generics import get_object_or_404
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
-from rest_framework.generics import get_object_or_404
-from .models import Producto
 from .serializers import ProductoSerializer
-from django.views.decorators.csrf import csrf_exempt    
+from .models import Producto
 
 @api_view(['GET'])
 def lista_productos(request):
