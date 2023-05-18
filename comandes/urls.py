@@ -9,6 +9,6 @@ urlpatterns = [
     path('<str:pk>/', views.ver_comanda, name="ver_comanda"),
     path('crear/<str:carretons>/<str:user>', views.agregar_comanda, name="agregar_comanda"),
     path('borrar/<str:idC>', views.elimina_comanda, name="elimina_comanda"),
-    path('modif/<str:comId>/<str:carrito>', views.comanda_modif, name="comanda_modif"),
+    path('modif/<str:comId>/', views.comanda_modif, name="comanda_modif"),
     path('hist/<str:idC>/', views.historialComanda_user, name="historialComanda_user")
 ]
