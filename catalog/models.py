@@ -12,6 +12,7 @@ class Producto(models.Model):
     precio = models.DecimalField(max_digits=10, decimal_places=2)
 
     def __str__(self):
+<<<<<<< HEAD
         return self.nombre
 
 
@@ -28,3 +29,6 @@ class Producto(models.Model):
 
 # def __str__(self):
 #    return self.nombre
+=======
+    return self.nombre
+>>>>>>> 2180dd525aa320464f5f910b4b7697e40b7bc5d3
