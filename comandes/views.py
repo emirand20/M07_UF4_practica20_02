@@ -48,8 +48,8 @@ def agregar_comanda(request):
 
 @api_view(['GET', 'DELETE'])
 def elimina_comanda(request, idC):
-    prodct = Comandes.objects.filter(carrito=idC)
-    prodct.delete()
+    product = Comandes.objects.filter(carrito=idC)
+    product.delete()
     return Response(status=status.HTTP_204_NO_CONTENT)
 
 #Crea una comanda, de manera que verificamos si la comanda existe, primeramente hacemos un listado,
@@ -73,13 +73,11 @@ def comanda_modif(request, comId, carritos):
 #la comanda para el usuario y si no existe error.
 @api_view(['GET'])
 def historialComanda_user(request, idC):
-    try:
-        myUser = User.objects.get(idUser = int(idC))
-        myComanda = Comandes.objects.filter(user=myUser).first()
-        context = {'request': request}
-        serializer = ComandesSerializer(myComanda, context, many=False)
+    myUser = User(User, idUser=int(idC))
+    myComanda = Comandes.objects.filter(user=myUser).first()
+    
+    if myComanda:
+        serializer = ComandesSerializer(myComanda, context={'request': request})
         return Response(serializer.data)
-
-    except User.DoesNotExist:
-        #Si la comando no existeix
+    else:
         return Response(status=status.HTTP_404_NOT_FOUND)
