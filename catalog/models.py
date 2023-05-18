@@ -3,6 +3,7 @@ from django.db import models
 class Producto(models.Model):
     nombre = models.CharField(max_length=255)
     descripcion = models.TextField()
+<<<<<<< Updated upstream
     precio = models.DecimalField(max_digits=10, decimal_places=2)
 
     def __str__(self):
@@ -22,3 +23,9 @@ class Producto(models.Model):
 
 #     def __str__(self):
 #         return self.nombre
+=======
+    
+def __str__(self):
+    return self.nombre
+
+>>>>>>> Stashed changes
