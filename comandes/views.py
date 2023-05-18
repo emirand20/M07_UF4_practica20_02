@@ -56,19 +56,20 @@ def comanda_borrar(request, idC):
 
 #Crea una comanda, de manera que verificamos si la comanda existe, primeramente hacemos un listado,
 #la filtramos y creamos la nueva comanda.
-@api_view(['GET', 'PUT'])
-def comanda_modif(request, comId, carritos):
+
+@api_view(['PUT'])
+def comanda_modif(request, comId):
     try:
         comanda = Comandes.objects.get(idComanda=int(comId))
-        comandesList = [int(e) for e in carritos.split(",")]
-        myComandes = Carreto.objects.filter(idCarreto__in=comandesList)
+        carritos = request.data.get('carritos', [])
+        myCarritos = Carreto.objects.filter(idCarreto__in=carritos)
+        comanda.carretons.set(myCarritos)
         comanda.save()
-        comanda.carretons.set(myComandes)
-        context = {'request': request}
-        serializer = ComandesSerializer(comanda, context)
+        serializer = ComandesSerializer(comanda, context={'request': request})
         return Response(serializer.data)
     except Comandes.DoesNotExist:
         return Response(status=status.HTTP_404_NOT_FOUND)
+
     
 
 #Muesta el historial de la compra del usuario, primeramente buscamos el usuario por su idm filtra
