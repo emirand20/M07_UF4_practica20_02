@@ -14,8 +14,6 @@ from catalog.serializers import ProductoSerializer
 from .serializers import *
 from django.http import JsonResponse
 
-from .forms import CarretoForm
-import json
 
 @api_view(['GET', 'POST'])
 def lista_carrito(request):
