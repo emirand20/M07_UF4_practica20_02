@@ -1,18 +1,12 @@
-from django.shortcuts import render
-from django.http import JsonResponse
-
 from rest_framework.response import Response
 from rest_framework.decorators import api_view
 from rest_framework import status
-
 from .models import Comandes, Carreto, User
 from .serializers import ComandesSerializer
-# Create your views here.
 
 #Ver todas las comandas
 @api_view(['GET', 'POST'])
 def lista_comandas(request):
-
     if request.method == 'GET':
         # obtenemos los datos del modelo Comandes
         data = Comandes.objects.all()
@@ -43,8 +37,11 @@ def ver_comanda(request, pk):
 #Añadir una comanda
 @api_view(['GET', 'POST'])
 def agregar_comanda(request, user, carretons):
+    # convertimos la cadena en en enteros
     lista_carrito = [int(e) for e in carretons.split(",")]
+    # guardamos los datos del modelo user en uno especifico
     isUser = User.objects.get(idUser = user)
+    # lo mismo pero ahora con el modelo comandes
     command = Comandes(user=isUser)
     command.save()
     command.carretons.set(lista_carrito)
