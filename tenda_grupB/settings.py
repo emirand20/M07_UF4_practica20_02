@@ -41,7 +41,8 @@ INSTALLED_APPS = [
     #Importacion de rest_framework y el corsheaders para hacer la API Rest
     'rest_framework',
     'catalog',
-    'carreto'
+    'carreto',
+    'comandes'
 ]
 
 MIDDLEWARE = [
