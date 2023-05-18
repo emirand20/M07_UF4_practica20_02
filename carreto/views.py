@@ -15,8 +15,6 @@ from .serializers import *
 from django.http import JsonResponse
 
 
-
-
 @api_view(['GET', 'POST'])
 def lista_carrito(request):
     if request.method == 'GET':
@@ -47,7 +45,6 @@ def carrito_id(request, ct):
 def add_carrito(request, items):
     listaProductos = [int(e) for e in items.split(",")]
     myItems = Producto.objects.filter(id=listaProductos)
-
     cart = Carreto(isBuy=False)
     cart.save()
     cart.productes.set(myItems)
@@ -55,18 +52,18 @@ def add_carrito(request, items):
 
 # modif product carrito, los datos de cada producto se de modificaran agusto del cliente, 
 # en el caso que exista el producto, guardaremos los cambios
-@api_view(['GET', 'PUT', 'POST'])
-def modif_carrito(request, ct, items):
+@api_view(['GET','PUT'])
+def modif_carrito(request, ct):
     try:
         item = Carreto.objects.get(id=int(ct))
-        listaProductos = [int(e) for e in items.split(",")]
-        myItems = Producto.objects.filter(id=listaProductos)
-        item.save()
-        item.productos.set(myItems)
-        serializer = CarretoSerializer(item, context={'request': request})
-        return Response(serializer.data)
+        items = request.data.get('items', [])
+        myItems = Producto.objects.filter(id__in=items)
+        item.Productos.clear()
+        item.Productos.add(*myItems)
+        return Response(status=status.HTTP_200_OK, content_type='application/json')
     except Carreto.DoesNotExist:
-        return Response(status=status.HTTP_404_NOT_FOUND)
+        return Response(status=status.HTTP_404_NOT_FOUND, content_type='application/json')
+
 
 #elimina carreto, enviaremos un error en el caso q no exista
 @api_view(['GET','DELETE'])
