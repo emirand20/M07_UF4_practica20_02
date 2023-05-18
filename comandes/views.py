@@ -9,6 +9,48 @@ from .models import Comandes, Carreto, User
 from .serializers import ComandesSerializer
 # Create your views here.
 
+#Ver todas las comandas
+@api_view(['GET', 'POST'])
+def lista_comandas(request):
+
+    if request.method == 'GET':
+        # obtenemos los datos del modelo Comandes
+        data = Comandes.objects.all()
+        # adaptamos los datos obtenido y le damos un contexto
+        serializer = ComandesSerializer(data, context={'request': request}, many=True)
+        return Response(serializer.data)
+    
+    elif request.method == 'POST':
+        # adaptamos las request
+        serializer = ComandesSerializer(data=request.data)
+        # validamos y guardamos
+        if serializer.is_valid():
+            serializer.save()
+            return Response(status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+#Ver comanda
+@api_view(['GET'])
+def ver_comanda(request, pk):
+    try:
+        # obtenemos datos especificos por id
+        data = Comandes.objects.get(idComanda = pk)
+        serializer = ComandesSerializer(data, context={'request': request}, many=False)
+        return Response(serializer.data)
+    except Comandes.DoesNotExist:
+        return Response(status=status.HTTP_404_NOT_FOUND)
+
+#Añadir una comanda
+@api_view(['GET', 'POST'])
+def agregar_comanda(request, user, carretons):
+    lista_carrito = [int(e) for e in carretons.split(",")]
+    isUser = User.objects.get(idUser = user)
+    command = Comandes(user=isUser)
+    command.save()
+    command.carretons.set(lista_carrito)
+    return Response({'success': 'Comanda creada con exito'}, status=status.HTTP_201_CREATED)
+
+
 @api_view(['GET', 'DELETE'])
 def comanda_borrar(request, idC):
     prod = Comandes.objects.filter(carrito=idC)
