@@ -14,4 +14,4 @@ class CarretoSerializer(serializers.ModelSerializer):
     productos =  ProductoSerializer(many=True)
     class Meta:
         model = Carreto
-        fields = ('idCarreto', 'nombreCarreto', 'productos')
+        fields = ('id','producto', 'isBuy', 'total')
