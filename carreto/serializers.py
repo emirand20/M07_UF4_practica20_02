@@ -9,7 +9,9 @@ from .models import Carreto
 from .serializers import *
 from catalog.serializers import ProductoSerializer
 
-#Sirven para traducir los modelos a otros formatos
+#Los serializadores en Django son una forma de convertir modelos y 
+# otros tipos de datos en representaciones legibles y manipulables, ç
+# como JSON, XML o incluso una representación en HTML.
 class CarretoSerializer(serializers.ModelSerializer):
     productos =  ProductoSerializer(many=True)
     class Meta:
