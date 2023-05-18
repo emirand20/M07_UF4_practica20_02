@@ -49,7 +49,7 @@ def agregar_comanda(request, user, carretons):
 
 
 @api_view(['GET', 'DELETE'])
-def comanda_borrar(request, idC):
+def elimina_comanda(request, idC):
     prod = Comandes.objects.filter(carrito=idC)
     prod.delete()
     return Response(status=status.HTTP_204_NO_CONTENT)
