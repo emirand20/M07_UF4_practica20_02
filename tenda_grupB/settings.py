@@ -92,16 +92,16 @@ DATABASES = {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'railway',
         'USER': 'root',
-        'PASSWORD': '9p1LyQRWiUufstUs74VW',
-        'HOST': 'containers-us-west-114.railway.app',
-        'PORT': '7411',
-        'OPTIONS': {'init_command': "SET sql_mode='STRICT_TRANS_TABLES'"},
+        'PASSWORD': 'Egyjp5OIyjmJVOvWCMRU',
+        'HOST': 'containers-us-west-92.railway.app',
+        'PORT': '7689',
+        # 'OPTIONS': {'init_command': "SET sql_mode='STRICT_TRANS_TABLES'"},
     }
 }
-if DATABASE_URL:
-    import dj_database_url
-    db_from_env = dj_database_url.config(default=DATABASE_URL)
-    DATABASES['default'].update(db_from_env)
+# if DATABASE_URL:
+#     import dj_database_url
+#     db_from_env = dj_database_url.config(default=DATABASE_URL)
+#     DATABASES['default'].update(db_from_env)
 
 
 # Password validation
